@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CSS 渐变生成器
 
-## Getting Started
+一个现代化的 CSS 渐变代码生成工具，帮助开发者和设计师快速创建和调试渐变效果。
 
-First, run the development server:
+## 功能特点
+
+- 🎨 支持线性渐变和径向渐变
+- 🎯 直观的颜色控制和位置调整
+- 📋 一键复制生成的 CSS 代码
+- 💾 本地保存渐变历史记录
+- 🌓 深色模式支持
+- 📱 响应式设计
+- ⚡ 实时预览效果
+
+## 技术栈
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Zustand
+- Shadcn/ui
+
+## 开始使用
+
+1. 克隆项目：
+
+```bash
+git clone https://github.com/bantangzm/css-gradient-generator.git
+cd css-gradient-generator
+```
+
+2. 安装依赖：
+
+```bash
+npm install
+```
+
+3. 启动开发环境：
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. 在浏览器中打开 [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 使用说明
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. 选择渐变类型（线性/径向）
+2. 添加或调整颜色节点
+3. 使用滑块调整角度或方向
+4. 点击"保存当前"将喜欢的渐变保存到历史记录
+5. 点击"复制代码"获取 CSS 代码
 
-## Learn More
+## 贡献指南
 
-To learn more about Next.js, take a look at the following resources:
+欢迎提交 Pull Request 或创建 Issue！
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 许可证
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+MIT License
 
-## Deploy on Vercel
+## 部署
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+本项目可以轻松部署到 Vercel 平台：
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/css-gradient-generator)
