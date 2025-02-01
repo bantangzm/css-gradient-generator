@@ -20,7 +20,7 @@ export function ColorStop({ colorStop }: ColorStopProps) {
         onChange={(e) =>
           updateColorStop(colorStop.id, { color: e.target.value })
         }
-        className="w-12 h-12 rounded-lg cursor-pointer border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+        className="w-12 h-12 rounded-lg cursor-pointer border border-border shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(0,0,0,0.3)] hover:shadow-[0_0_15px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_0_15px_rgba(0,0,0,0.4)] transition-shadow"
       />
       <Slider
         value={[colorStop.position]}

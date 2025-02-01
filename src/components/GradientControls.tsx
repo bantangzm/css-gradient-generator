@@ -21,7 +21,9 @@ export function GradientControls() {
   return (
     <div className="space-y-4">
       <div>
-        <label className="block text-sm font-medium mb-2">角度控制</label>
+        <label className="block text-sm font-medium mb-2 text-foreground">
+          角度控制
+        </label>
         <div className="flex items-center gap-4">
           <Slider
             value={[gradient.angle]}
@@ -38,15 +40,17 @@ export function GradientControls() {
               max={360}
               value={gradient.angle}
               onChange={(e) => setAngle(Number(e.target.value))}
-              className="w-20 px-2 py-1 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+              className="w-20 px-2 py-1 border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
             />
-            <span className="text-sm text-gray-600">度</span>
+            <span className="text-sm text-muted-foreground">度</span>
           </div>
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">预设方向</label>
+        <label className="block text-sm font-medium mb-2 text-foreground">
+          预设方向
+        </label>
         <div className="grid grid-cols-4 gap-2">
           {PRESET_DIRECTIONS.map(({ label, value }) => (
             <motion.button
@@ -54,7 +58,7 @@ export function GradientControls() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setDirection(value)}
-              className="p-2 border rounded-lg hover:bg-gray-50 text-lg transition-colors"
+              className="p-2 border rounded-lg hover:bg-accent text-foreground transition-colors"
             >
               {label}
             </motion.button>

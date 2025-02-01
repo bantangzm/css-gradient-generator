@@ -83,16 +83,16 @@ export function GradientHistory() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full bg-white rounded-xl p-6 shadow-lg"
+      className="w-full bg-card text-card-foreground rounded-xl p-6 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.4)]"
     >
       {history.length > 0 && (
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg font-semibold text-gray-800">最近使用</h3>
+          <h3 className="text-lg font-semibold text-foreground">最近使用</h3>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={clearHistory}
-            className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:text-red-800 transition-colors rounded-lg hover:bg-red-50"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-destructive hover:text-destructive/90 transition-colors rounded-lg hover:bg-destructive/10"
           >
             <HiTrash className="w-4 h-4" />
             清空历史记录
@@ -111,27 +111,24 @@ export function GradientHistory() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              whileHover={{ y: -5 }}
-              className="relative group"
+              whileHover={{ scale: 1.05 }}
+              className="relative aspect-video rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(0,0,0,0.3)] cursor-pointer overflow-hidden border border-border"
+              style={{
+                background:
+                  gradient.type === "linear"
+                    ? `linear-gradient(${
+                        gradient.angle
+                      }deg, ${gradient.colorStops
+                        .map((stop) => `${stop.color} ${stop.position}%`)
+                        .join(", ")})`
+                    : `radial-gradient(${gradient.shape} at ${
+                        gradient.position.x
+                      }% ${gradient.position.y}%, ${gradient.colorStops
+                        .map((stop) => `${stop.color} ${stop.position}%`)
+                        .join(", ")})`,
+              }}
+              onClick={() => setGradient(gradient)}
             >
-              <motion.button
-                onClick={() => setGradient(gradient)}
-                className="w-full h-24 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
-                style={{
-                  background:
-                    gradient.type === "linear"
-                      ? `linear-gradient(${
-                          gradient.angle
-                        }deg, ${gradient.colorStops
-                          .map((stop) => `${stop.color} ${stop.position}%`)
-                          .join(", ")})`
-                      : `radial-gradient(${gradient.shape} at ${
-                          gradient.position.x
-                        }% ${gradient.position.y}%, ${gradient.colorStops
-                          .map((stop) => `${stop.color} ${stop.position}%`)
-                          .join(", ")})`,
-                }}
-              />
               <motion.button
                 initial={{ opacity: 0 }}
                 whileHover={{ scale: 1.1 }}
@@ -141,7 +138,7 @@ export function GradientHistory() {
                   e.stopPropagation();
                   deleteHistoryItem(index);
                 }}
-                className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 text-white shadow-lg hover:bg-red-600 transition-colors flex items-center justify-center text-sm font-medium backdrop-blur-sm"
+                className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-destructive text-destructive-foreground shadow-lg hover:bg-destructive/90 transition-colors flex items-center justify-center text-sm font-medium backdrop-blur-sm"
                 title="删除"
               >
                 ×

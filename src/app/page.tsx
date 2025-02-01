@@ -10,6 +10,7 @@ import { GradientType } from "@/types/gradient";
 import { GradientHistory } from "@/components/GradientHistory";
 import { motion } from "framer-motion";
 import { HiColorSwatch, HiTemplate } from "react-icons/hi";
+import { ModeToggle } from "@/components/ModeToggle";
 import {
   Select,
   SelectTrigger,
@@ -39,15 +40,18 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent"
-        >
-          CSS 渐变生成器
-        </motion.h1>
+        <div className="flex justify-between items-center mb-8">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent"
+          >
+            CSS 渐变生成器
+          </motion.h1>
+          <ModeToggle />
+        </div>
 
         <motion.div
           variants={container}
@@ -63,10 +67,12 @@ export default function Home() {
 
           {/* 控制面板 */}
           <motion.div variants={item} className="lg:col-span-6 space-y-6">
-            <div className="bg-white rounded-xl p-6 shadow-lg space-y-6">
+            <div className="bg-card text-card-foreground rounded-xl p-6 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.4)] space-y-6">
               <div className="flex items-center gap-2">
-                <HiColorSwatch className="w-6 h-6 text-purple-500" />
-                <h2 className="text-xl font-semibold">渐变类型</h2>
+                <HiColorSwatch className="w-6 h-6 text-primary" />
+                <h2 className="text-xl font-semibold text-foreground">
+                  渐变类型
+                </h2>
               </div>
               <Select
                 value={gradient.type}
@@ -85,7 +91,7 @@ export default function Home() {
             {gradient.type === "linear" && (
               <motion.div
                 variants={item}
-                className="bg-white rounded-xl p-6 shadow-lg"
+                className="bg-card text-card-foreground rounded-xl p-6 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.4)]"
               >
                 <GradientControls />
               </motion.div>
@@ -93,11 +99,13 @@ export default function Home() {
 
             <motion.div
               variants={item}
-              className="bg-white rounded-xl p-6 shadow-lg space-y-6"
+              className="bg-card text-card-foreground rounded-xl p-6 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.4)] space-y-6"
             >
               <div className="flex items-center gap-2">
-                <HiColorSwatch className="w-6 h-6 text-purple-500" />
-                <h2 className="text-xl font-semibold">颜色控制</h2>
+                <HiColorSwatch className="w-6 h-6 text-primary" />
+                <h2 className="text-xl font-semibold text-foreground">
+                  颜色控制
+                </h2>
               </div>
               <div className="space-y-4">
                 {gradient.colorStops.map((stop) => (
@@ -120,11 +128,13 @@ export default function Home() {
           <motion.div variants={item} className="lg:col-span-6 space-y-6">
             <motion.div
               variants={item}
-              className="bg-white rounded-xl p-6 shadow-lg space-y-6"
+              className="bg-card text-card-foreground rounded-xl p-6 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.4)] space-y-6"
             >
               <div className="flex items-center gap-2">
-                <HiTemplate className="w-6 h-6 text-purple-500" />
-                <h2 className="text-xl font-semibold">预设模板</h2>
+                <HiTemplate className="w-6 h-6 text-primary" />
+                <h2 className="text-xl font-semibold text-foreground">
+                  预设模板
+                </h2>
               </div>
               <PresetGradients />
             </motion.div>
