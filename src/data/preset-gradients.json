@@ -92,6 +92,17 @@
         { "color": "#232526", "position": 0 },
         { "color": "#414345", "position": 100 }
       ]
+    },
+    {
+      "id": "neon",
+      "name": "霓虹",
+      "type": "linear",
+      "angle": 135,
+      "colorStops": [
+        { "color": "#ff00ff", "position": 0 },
+        { "color": "#00ffff", "position": 50 },
+        { "color": "#ff00ff", "position": 100 }
+      ]
     }
   ]
 }

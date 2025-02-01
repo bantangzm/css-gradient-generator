@@ -6,6 +6,8 @@ import { CodeOutput } from "@/components/CodeOutput";
 import { useGradientStore } from "@/stores/gradientStore";
 import { GradientControls } from "@/components/GradientControls";
 import { PresetGradients } from "@/components/PresetGradients";
+import { GradientType } from "@/types/gradient";
+import { GradientHistory } from "@/components/GradientHistory";
 
 export default function Home() {
   const gradient = useGradientStore((state) => state.gradient);
@@ -21,7 +23,7 @@ export default function Home() {
           <h2 className="text-xl font-semibold">渐变类型</h2>
           <select
             value={gradient.type}
-            onChange={(e) => setType(e.target.value as any)}
+            onChange={(e) => setType(e.target.value as GradientType)}
             className="p-2 border rounded"
           >
             <option value="linear">线性渐变</option>
@@ -58,6 +60,11 @@ export default function Home() {
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">预览</h2>
           <PreviewPane />
+        </div>
+
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold">历史记录</h2>
+          <GradientHistory />
         </div>
 
         <div className="space-y-4">
