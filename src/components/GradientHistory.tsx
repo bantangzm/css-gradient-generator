@@ -3,7 +3,7 @@ import { GradientState } from "@/types/gradient";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiTrash } from "react-icons/hi";
+import { HiTrash, HiSave } from "react-icons/hi";
 
 const MAX_HISTORY = 10;
 
@@ -32,13 +32,8 @@ export function GradientHistory() {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
+  const saveCurrentGradient = () => {
     if (!mounted || isDeleting.current) return;
-
-    if (history.length === 0) {
-      setHistory([currentGradient]);
-      return;
-    }
 
     setHistory((prev) => {
       const newHistory = [
@@ -49,7 +44,7 @@ export function GradientHistory() {
       ].slice(0, MAX_HISTORY);
       return newHistory;
     });
-  }, [currentGradient, setHistory, mounted, history.length]);
+  };
 
   const deleteHistoryItem = (index: number) => {
     isDeleting.current = true;
@@ -85,20 +80,31 @@ export function GradientHistory() {
       animate={{ opacity: 1, y: 0 }}
       className="w-full bg-card text-card-foreground rounded-xl p-6 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.4)]"
     >
-      {history.length > 0 && (
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg font-semibold text-foreground">最近使用</h3>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-lg font-semibold text-foreground">最近使用</h3>
+        <div className="flex items-center gap-2">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={clearHistory}
-            className="flex items-center gap-2 px-4 py-2 text-sm text-destructive hover:text-destructive/90 transition-colors rounded-lg hover:bg-destructive/10"
+            onClick={saveCurrentGradient}
+            className="flex items-center gap-2 px-4 py-2 text-sm text-primary hover:text-primary/90 transition-colors rounded-lg hover:bg-primary/10"
           >
-            <HiTrash className="w-4 h-4" />
-            清空历史记录
+            <HiSave className="w-4 h-4" />
+            保存当前
           </motion.button>
+          {history.length > 0 && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={clearHistory}
+              className="flex items-center gap-2 px-4 py-2 text-sm text-destructive hover:text-destructive/90 transition-colors rounded-lg hover:bg-destructive/10"
+            >
+              <HiTrash className="w-4 h-4" />
+              清空历史记录
+            </motion.button>
+          )}
         </div>
-      )}
+      </div>
       <AnimatePresence mode="popLayout">
         <motion.div
           layout
