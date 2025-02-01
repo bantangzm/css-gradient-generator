@@ -1,10 +1,18 @@
 import { useGradientStore } from "@/stores/gradientStore";
 import { useState } from "react";
-import { GradientState } from "@/types/gradient";
+import { GradientFormat, GradientState } from "@/types/gradient";
+import { motion } from "framer-motion";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function CodeOutput() {
   const gradient = useGradientStore((state) => state.gradient);
-  const [format, setFormat] = useState<"css" | "scss" | "sass">("css");
+  const [format, setFormat] = useState<GradientFormat>("css");
 
   const generateGradientCSS = (gradient: GradientState) => {
     if (gradient.type === "linear") {
@@ -46,24 +54,30 @@ export function CodeOutput() {
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-4">
-        <select
+      <div className="flex items-center gap-4">
+        <Select
           value={format}
-          onChange={(e) => setFormat(e.target.value as any)}
-          className="p-2 border rounded"
+          onValueChange={(value) => setFormat(value as GradientFormat)}
         >
-          <option value="css">CSS</option>
-          <option value="scss">SCSS</option>
-          <option value="sass">SASS</option>
-        </select>
-        <button
+          <SelectTrigger className="w-32">
+            <SelectValue placeholder="选择格式" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="css">CSS</SelectItem>
+            <SelectItem value="scss">SCSS</SelectItem>
+            <SelectItem value="sass">SASS</SelectItem>
+          </SelectContent>
+        </Select>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={copyToClipboard}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all"
         >
           复制代码
-        </button>
+        </motion.button>
       </div>
-      <pre className="p-4 bg-gray-100 rounded overflow-x-auto">
+      <pre className="p-4 bg-gray-800 text-gray-100 rounded-lg overflow-x-auto">
         <code>{generateCode()}</code>
       </pre>
     </div>

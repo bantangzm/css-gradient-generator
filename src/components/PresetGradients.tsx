@@ -1,51 +1,65 @@
 import { useGradientStore } from "@/stores/gradientStore";
-import presets from "@/data/preset-gradients.json";
-import { v4 as uuidv4 } from "uuid";
-import { GradientType } from "@/types/gradient";
+import { motion } from "framer-motion";
+import { GradientState } from "@/types/gradient";
+import presetData from "@/data/preset-gradients.json";
+
+type PresetGradient = {
+  id: string;
+  name: string;
+  type: "linear" | "radial";
+  angle: number;
+  colorStops: Array<{
+    color: string;
+    position: number;
+  }>;
+};
 
 export function PresetGradients() {
   const setGradient = useGradientStore((state) => state.setGradient);
 
-  const applyPreset = (presetId: string) => {
-    const preset = presets.presets.find((p) => p.id === presetId);
-    if (!preset) return;
-
-    const colorStops = preset.colorStops.map((stop) => ({
-      ...stop,
-      id: uuidv4(),
-    }));
-
-    setGradient({
-      type: preset.type as GradientType,
+  const handlePresetClick = (preset: PresetGradient) => {
+    const gradientState: GradientState = {
+      type: preset.type,
       angle: preset.angle,
-      colorStops,
+      colorStops: preset.colorStops.map((stop, index) => ({
+        id: `${preset.id}-${index}`,
+        color: stop.color,
+        position: stop.position,
+      })),
       shape: "circle",
       position: { x: 50, y: 50 },
-    });
+    };
+    setGradient(gradientState);
   };
 
   return (
-    <div className="w-full">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {presets.presets.map((preset) => (
-          <button
-            key={preset.id}
-            onClick={() => applyPreset(preset.id)}
-            className="w-full h-24 rounded-lg shadow hover:shadow-md transition-shadow"
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      {presetData.presets.map((preset) => (
+        <motion.div
+          key={preset.id}
+          className="relative group"
+          whileHover={{ y: -5, scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <motion.button
+            onClick={() => handlePresetClick(preset as PresetGradient)}
+            className="w-full h-20 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
             style={{
-              background: `linear-gradient(${
-                preset.angle
-              }deg, ${preset.colorStops
-                .map((stop) => `${stop.color} ${stop.position}%`)
-                .join(", ")})`,
+              background:
+                preset.type === "linear"
+                  ? `linear-gradient(${preset.angle}deg, ${preset.colorStops
+                      .map((stop) => `${stop.color} ${stop.position}%`)
+                      .join(", ")})`
+                  : `radial-gradient(circle at 50% 50%, ${preset.colorStops
+                      .map((stop) => `${stop.color} ${stop.position}%`)
+                      .join(", ")})`,
             }}
-          >
-            <span className="block text-center py-8 text-white font-semibold shadow-text">
-              {preset.name}
-            </span>
-          </button>
-        ))}
-      </div>
+          />
+          <div className="absolute inset-x-0 bottom-0 p-2 bg-black/50 text-white text-xs font-medium text-center opacity-0 group-hover:opacity-100 transition-opacity">
+            {preset.name}
+          </div>
+        </motion.div>
+      ))}
     </div>
   );
 }

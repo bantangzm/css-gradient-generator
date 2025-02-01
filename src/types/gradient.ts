@@ -1,3 +1,5 @@
+export type GradientFormat = "css" | "scss" | "sass";
+
 export type GradientType = 'linear' | 'radial';
 
 export interface ColorStop {

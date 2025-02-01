@@ -1,5 +1,8 @@
 import { ColorStop as ColorStopType } from "@/types/gradient";
 import { useGradientStore } from "@/stores/gradientStore";
+import { Slider } from "@/components/ui/slider";
+import { HiTrash } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 interface ColorStopProps {
   colorStop: ColorStopType;
@@ -17,24 +20,26 @@ export function ColorStop({ colorStop }: ColorStopProps) {
         onChange={(e) =>
           updateColorStop(colorStop.id, { color: e.target.value })
         }
-        className="w-12 h-12 rounded cursor-pointer"
+        className="w-12 h-12 rounded-lg cursor-pointer border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
       />
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={colorStop.position}
-        onChange={(e) =>
-          updateColorStop(colorStop.id, { position: Number(e.target.value) })
+      <Slider
+        value={[colorStop.position]}
+        min={0}
+        max={100}
+        step={1}
+        onValueChange={(value) =>
+          updateColorStop(colorStop.id, { position: value[0] })
         }
-        className="w-full"
+        className="flex-1"
       />
-      <button
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         onClick={() => removeColorStop(colorStop.id)}
-        className="p-2 text-red-500"
+        className="p-2 text-red-500 hover:text-red-600 transition-colors"
       >
-        删除
-      </button>
+        <HiTrash className="w-5 h-5" />
+      </motion.button>
     </div>
   );
 }

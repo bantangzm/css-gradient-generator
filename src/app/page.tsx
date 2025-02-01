@@ -8,69 +8,129 @@ import { GradientControls } from "@/components/GradientControls";
 import { PresetGradients } from "@/components/PresetGradients";
 import { GradientType } from "@/types/gradient";
 import { GradientHistory } from "@/components/GradientHistory";
+import { motion } from "framer-motion";
+import { HiColorSwatch, HiTemplate } from "react-icons/hi";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 export default function Home() {
   const gradient = useGradientStore((state) => state.gradient);
   const setType = useGradientStore((state) => state.setType);
   const addColorStop = useGradientStore((state) => state.addColorStop);
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">CSS 渐变生成器</h1>
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent"
+        >
+          CSS 渐变生成器
+        </motion.h1>
 
-      <div className="space-y-8">
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">渐变类型</h2>
-          <select
-            value={gradient.type}
-            onChange={(e) => setType(e.target.value as GradientType)}
-            className="p-2 border rounded"
-          >
-            <option value="linear">线性渐变</option>
-            <option value="radial">径向渐变</option>
-          </select>
-        </div>
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8"
+        >
+          {/* 预览和代码输出区域 */}
+          <motion.div variants={item} className="lg:col-span-12 space-y-6">
+            <PreviewPane />
+            <CodeOutput />
+          </motion.div>
 
-        {gradient.type === "linear" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">方向控制</h2>
-            <GradientControls />
-          </div>
-        )}
+          {/* 控制面板 */}
+          <motion.div variants={item} className="lg:col-span-6 space-y-6">
+            <div className="bg-white rounded-xl p-6 shadow-lg space-y-6">
+              <div className="flex items-center gap-2">
+                <HiColorSwatch className="w-6 h-6 text-purple-500" />
+                <h2 className="text-xl font-semibold">渐变类型</h2>
+              </div>
+              <Select
+                value={gradient.type}
+                onValueChange={(value) => setType(value as GradientType)}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="选择渐变类型" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="linear">线性渐变</SelectItem>
+                  <SelectItem value="radial">径向渐变</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">颜色控制</h2>
-          {gradient.colorStops.map((stop) => (
-            <ColorStop key={stop.id} colorStop={stop} />
-          ))}
-          <button
-            onClick={() => addColorStop("#000000")}
-            className="px-4 py-2 bg-green-500 text-white rounded"
-            disabled={gradient.colorStops.length >= 8}
-          >
-            添加颜色
-          </button>
-        </div>
+            {gradient.type === "linear" && (
+              <motion.div
+                variants={item}
+                className="bg-white rounded-xl p-6 shadow-lg"
+              >
+                <GradientControls />
+              </motion.div>
+            )}
 
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">预设模板</h2>
-          <PresetGradients />
-        </div>
+            <motion.div
+              variants={item}
+              className="bg-white rounded-xl p-6 shadow-lg space-y-6"
+            >
+              <div className="flex items-center gap-2">
+                <HiColorSwatch className="w-6 h-6 text-purple-500" />
+                <h2 className="text-xl font-semibold">颜色控制</h2>
+              </div>
+              <div className="space-y-4">
+                {gradient.colorStops.map((stop) => (
+                  <ColorStop key={stop.id} colorStop={stop} />
+                ))}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => addColorStop("#000000")}
+                  className="w-full px-4 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all disabled:opacity-50"
+                  disabled={gradient.colorStops.length >= 8}
+                >
+                  添加颜色
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
 
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">预览</h2>
-          <PreviewPane />
-        </div>
-
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">历史记录</h2>
-          <GradientHistory />
-        </div>
-
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">生成代码</h2>
-          <CodeOutput />
-        </div>
+          {/* 预设和历史记录 */}
+          <motion.div variants={item} className="lg:col-span-6 space-y-6">
+            <motion.div
+              variants={item}
+              className="bg-white rounded-xl p-6 shadow-lg space-y-6"
+            >
+              <div className="flex items-center gap-2">
+                <HiTemplate className="w-6 h-6 text-purple-500" />
+                <h2 className="text-xl font-semibold">预设模板</h2>
+              </div>
+              <PresetGradients />
+            </motion.div>
+            <GradientHistory />
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

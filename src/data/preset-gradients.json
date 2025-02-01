@@ -63,17 +63,6 @@
       ]
     },
     {
-      "id": "aurora",
-      "name": "极光",
-      "type": "radial",
-      "angle": 0,
-      "colorStops": [
-        { "color": "#1a2a6c", "position": 0 },
-        { "color": "#b21f1f", "position": 50 },
-        { "color": "#fdbb2d", "position": 100 }
-      ]
-    },
-    {
       "id": "cotton-candy",
       "name": "棉花糖",
       "type": "linear",
@@ -91,17 +80,6 @@
       "colorStops": [
         { "color": "#232526", "position": 0 },
         { "color": "#414345", "position": 100 }
-      ]
-    },
-    {
-      "id": "neon",
-      "name": "霓虹",
-      "type": "linear",
-      "angle": 135,
-      "colorStops": [
-        { "color": "#ff00ff", "position": 0 },
-        { "color": "#00ffff", "position": 50 },
-        { "color": "#ff00ff", "position": 100 }
       ]
     }
   ]
