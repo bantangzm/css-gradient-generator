@@ -1,0 +1,97 @@
+{
+  "presets": [
+    {
+      "id": "sunset",
+      "name": "日落",
+      "type": "linear",
+      "angle": 45,
+      "colorStops": [
+        { "color": "#ff512f", "position": 0 },
+        { "color": "#f09819", "position": 50 },
+        { "color": "#dd2476", "position": 100 }
+      ]
+    },
+    {
+      "id": "ocean",
+      "name": "海洋",
+      "type": "linear",
+      "angle": 180,
+      "colorStops": [
+        { "color": "#2193b0", "position": 0 },
+        { "color": "#6dd5ed", "position": 100 }
+      ]
+    },
+    {
+      "id": "metallic",
+      "name": "金属",
+      "type": "linear",
+      "angle": 90,
+      "colorStops": [
+        { "color": "#bdc3c7", "position": 0 },
+        { "color": "#2c3e50", "position": 100 }
+      ]
+    },
+    {
+      "id": "purple-love",
+      "name": "紫色之恋",
+      "type": "linear",
+      "angle": 135,
+      "colorStops": [
+        { "color": "#cc2b5e", "position": 0 },
+        { "color": "#753a88", "position": 100 }
+      ]
+    },
+    {
+      "id": "cyber-punk",
+      "name": "赛博朋克",
+      "type": "linear",
+      "angle": -45,
+      "colorStops": [
+        { "color": "#00f2fe", "position": 0 },
+        { "color": "#4facfe", "position": 50 },
+        { "color": "#ff00ff", "position": 100 }
+      ]
+    },
+    {
+      "id": "forest",
+      "name": "森林",
+      "type": "linear",
+      "angle": 120,
+      "colorStops": [
+        { "color": "#11998e", "position": 0 },
+        { "color": "#38ef7d", "position": 100 }
+      ]
+    },
+    {
+      "id": "aurora",
+      "name": "极光",
+      "type": "radial",
+      "angle": 0,
+      "colorStops": [
+        { "color": "#1a2a6c", "position": 0 },
+        { "color": "#b21f1f", "position": 50 },
+        { "color": "#fdbb2d", "position": 100 }
+      ]
+    },
+    {
+      "id": "cotton-candy",
+      "name": "棉花糖",
+      "type": "linear",
+      "angle": 90,
+      "colorStops": [
+        { "color": "#ffafbd", "position": 0 },
+        { "color": "#ffc3a0", "position": 100 }
+      ]
+    },
+    {
+      "id": "midnight",
+      "name": "午夜",
+      "type": "linear",
+      "angle": 225,
+      "colorStops": [
+        { "color": "#232526", "position": 0 },
+        { "color": "#414345", "position": 100 }
+      ]
+    }
+  ]
+}
